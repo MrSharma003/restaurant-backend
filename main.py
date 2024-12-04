@@ -1,18 +1,21 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-
 from schema.restaurantSchema import RestaurantSchema
 from schema.slotSchema import SlotSchema
 from services.restaurant_service import RestaurantService
 from services.slot_service import SlotService
+from bson import ObjectId
 
+# Define request models
 class TableBookingRequest(BaseModel):
     slot_id: str
     table_id: str
 
+# Initialize FastAPI app
 app = FastAPI()
 
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -21,6 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Initialize services
 restaurant_service = RestaurantService()
 slot_service = SlotService()
 
@@ -48,7 +52,6 @@ def search_restaurant(name: str = None, city: str = None, area: str = None, cuis
     ]
     
     return {"restaurants": restaurants}
-
 
 @app.get("/slots/available/{restaurant_id}")
 def get_available_slots(restaurant_id: str):
