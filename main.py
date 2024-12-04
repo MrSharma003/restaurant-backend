@@ -28,6 +28,10 @@ app.add_middleware(
 restaurant_service = RestaurantService()
 slot_service = SlotService()
 
+@app.get("")
+def get():
+    return "hello backend"
+
 @app.post("/register")
 def register_restaurant(restaurant: RestaurantSchema):
     restaurant_id = restaurant_service.register_restaurant(restaurant)
