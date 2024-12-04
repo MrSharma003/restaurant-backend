@@ -28,7 +28,7 @@ app.add_middleware(
 restaurant_service = RestaurantService()
 slot_service = SlotService()
 
-@app.get("")
+@app.get("/")
 def get():
     return "hello backend"
 
